@@ -14,3 +14,18 @@
 
     - name: install nginx package
       action: apt pkg=nginx state=installed
+
+    - name: write nginx.conf
+      action: template src=templates/nginx.conf dest=/etc/nginx/nginx.conf
+
+    - name: remove default nginx site
+      action: file path=/etc/nginx/sites-enabled/default state=absent
+
+    - name: write nginx-custom-site.conf
+      action: template src=templates/nginx-custom-site.conf dest=/etc/nginx/sites-enabled/nginx-custom-site.conf
+
+    - name: remove default nginx HTML
+      action: file path=/var/www/html/index.nginx-debian.html state=absent
+
+    - name: write custom HTML
+      action: template src=templates/index.html dest=/var/www/html/index.html
